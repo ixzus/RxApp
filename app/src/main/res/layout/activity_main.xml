@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.ixzus.rxapp.MainActivity">
 
+    <include layout="@layout/toolbar" />
+
+    <Button
+        android:id="@+id/dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="dialog" />
 </android.support.constraint.ConstraintLayout>
