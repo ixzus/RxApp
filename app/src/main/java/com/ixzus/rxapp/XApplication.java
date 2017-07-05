@@ -16,12 +16,13 @@ import com.squareup.leakcanary.LeakCanary;
  */
 
 public class XApplication extends Application {
+    private static final String TAG = "XApplication";
     @Override
     public void onCreate() {
         super.onCreate();
         init();
     }
-
+    @MethodInfo(author = "ixzus", date = "2017/7/3", version = 2)
     private void init() {
         initLeakCanary();
         initLifecycle();
