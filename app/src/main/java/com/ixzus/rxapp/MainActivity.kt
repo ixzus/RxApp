@@ -2,10 +2,8 @@ package com.ixzus.rxapp
 
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
-import org.jetbrains.anko.find
 
 class MainActivity : AppCompatActivity(), IToolbar, IActivity {
     override fun initLayout(): Int {

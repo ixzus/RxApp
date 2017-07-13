@@ -11,7 +11,7 @@ class SplashActivity : AppCompatActivity() {
         override fun onTick(millisUntilFinished: Long) {}
 
         override fun onFinish() {
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashActivity, Main2Activity::class.java))
             finish()
         }
     }

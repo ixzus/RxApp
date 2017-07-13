@@ -15,4 +15,12 @@
         android:layout_marginTop="48dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="dialog" />
+
+    <Button
+        android:id="@+id/carema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="dialog" />
 </android.support.constraint.ConstraintLayout>
