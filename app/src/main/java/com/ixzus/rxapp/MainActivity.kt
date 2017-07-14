@@ -2,6 +2,7 @@ package com.ixzus.rxapp
 
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.ixzus.rxapp.bean.ActivityBean
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 

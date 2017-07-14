@@ -1,4 +1,4 @@
-package com.ixzus.rxapp;
+package com.ixzus.rxapp.widget;
 
 import android.app.FragmentManager;
 

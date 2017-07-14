@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.ixzus.rxapp.impl.ISwipeBack;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -17,11 +18,13 @@ import com.squareup.leakcanary.LeakCanary;
 
 public class XApplication extends Application {
     private static final String TAG = "XApplication";
+
     @Override
     public void onCreate() {
         super.onCreate();
         init();
     }
+
     @MethodInfo(author = "ixzus", date = "2017/7/3", version = 2)
     private void init() {
         initLeakCanary();
@@ -43,9 +46,10 @@ public class XApplication extends Application {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
-                ActivityBean bean = new ActivityBean();
+               /* ActivityBean bean = new ActivityBean();
                 bean.setDialog(showDialog(activity));
-                activity.getIntent().putExtra("ActivityBean", bean);
+                activity.getIntent().putExtra("ActivityBean", bean);*/
+
                 if (activity instanceof IActivity) {
                     activity.setContentView(((IActivity) activity).initLayout());
                     ((IActivity) activity).initView();
@@ -56,7 +60,7 @@ public class XApplication extends Application {
                     initToolbar(activity);
                 }
 
-                if (!(activity instanceof MainActivity)) {
+                if (activity instanceof ISwipeBack) {
                     SwipeBackHelper.onCreate(activity);
                 }
 
@@ -64,7 +68,7 @@ public class XApplication extends Application {
 
             @Override
             public void onActivityStarted(Activity activity) {
-                if (!(activity instanceof MainActivity)) {
+                if (activity instanceof ISwipeBack) {
                     SwipeBackHelper.onPostCreate(activity);
                 }
             }
@@ -89,11 +93,12 @@ public class XApplication extends Application {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                if (!(activity instanceof MainActivity)) {
+                if (activity instanceof ISwipeBack) {
                     SwipeBackHelper.onDestroy(activity);
                 }
-                ActivityBean bean = activity.getIntent().getParcelableExtra("ActivityBean");
-                bean.setDialog(null);
+              /*  ActivityBean bean = activity.getIntent().getParcelableExtra("ActivityBean");
+                bean.setDialog(null);*/
+
             }
         });
     }
@@ -125,12 +130,13 @@ public class XApplication extends Application {
 
     }
 
-    private FactoryDialog showDialog(Activity activity) {
+/*    private FactoryDialog showDialog(final Activity activity) {
         FactoryDialog dialog = FactoryDialog.create(activity.getFragmentManager());
         dialog.setLayoutRes(R.layout.dialog_net)
                 .setmOutsideCancel(false)
                 .setmBackCancel(false)
                 .setmTag("netdialog");
         return dialog;
-    }
+    }*/
+
 }

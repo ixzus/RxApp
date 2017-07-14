@@ -1,4 +1,4 @@
-package com.ixzus.rxapp;
+package com.ixzus.rxapp.widget;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.ixzus.rxapp.R;
 
 public abstract class BaseDialog extends DialogFragment implements Parcelable {
 

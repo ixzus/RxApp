@@ -1,7 +1,9 @@
-package com.ixzus.rxapp;
+package com.ixzus.rxapp.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.ixzus.rxapp.widget.BaseDialog;
 
 /**
  * Created by xoutl on 2017/7/2.
