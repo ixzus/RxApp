@@ -16,9 +16,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Inherited
 public @interface MethodInfo {
-    String author() default "iandroid@foxmail.com";
-
     String date();
+
+    String desc() default "描述待补充";
+
+    String author() default "iandroid@foxmail.com";
 
     int version() default 1;
 }

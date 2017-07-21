@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 26
@@ -48,19 +48,76 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.anko:anko:$anko_version"
+    //sys
+    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.jude:swipebackhelper:3.1.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    //kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.anko:anko:$anko_version"
+    //leakcanary
+//    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+//    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    //rx
     compile 'com.jakewharton.rxbinding2:rxbinding:2.+'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile "io.reactivex.rxjava2:rxjava:2.1.1"
+    //net
+//    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+//    compile 'com.squareup.retrofit2:converter-jackson:2.3.0'
+//    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+//    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.lzy.net:okrx2:2.0.2'
+    //other
+    compile 'com.jude:swipebackhelper:3.1.2'
     compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.1'
+    compile 'com.github.lygttpod:SuperTextView:2.0.5'
 }
 repositories {
     mavenCentral()
 }
+
+public class BuildTimeListener implements TaskExecutionListener, BuildListener {
+    private Clock clock
+    private times = []
+
+    @Override
+    void beforeExecute(Task task) {
+        clock = new org.gradle.util.Clock()
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        def ms = clock.timeInMs
+        times.add([ms, task.path])
+
+        //task.project.logger.warn "${task.path} spend ${ms}ms"
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println "Task spend time:"
+        for (time in times) {
+            if (time[0] >= 50) {
+                printf "%7sms  %s\n", time
+            }
+        }
+    }
+
+    @Override
+    void buildStarted(Gradle gradle) {}
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {}
+
+    @Override
+    void projectsLoaded(Gradle gradle) {}
+
+    @Override
+    void settingsEvaluated(Settings settings) {}
+}
+
+project.gradle.addListener(new BuildTimeListener())

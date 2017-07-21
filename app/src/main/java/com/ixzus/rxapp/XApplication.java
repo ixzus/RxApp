@@ -25,7 +25,7 @@ public class XApplication extends Application {
         init();
     }
 
-    @MethodInfo(author = "ixzus", date = "2017/7/3", version = 2)
+    @MethodInfo(date = "2017/7/3", desc = "初始化", author = "ixzus", version = 2)
     private void init() {
         initLeakCanary();
         initLifecycle();
